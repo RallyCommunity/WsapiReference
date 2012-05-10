@@ -1,0 +1,30 @@
+.app {
+    margin: 20px;
+}
+
+.x-tree-panel.x-grid {
+    border-bottom: 0 solid #99BCE8 !important;
+}
+
+.x-tree-panel .x-grid-header-ct,
+.x-tree-panel .x-toolbar {
+    border: 0;
+}
+
+.x-window-body-default {
+    border-width: 0;
+    background: #fff;
+}
+
+.x-form-item-label.x-form-item-label-left {
+    margin-right: -20px !important;
+}
+
+.x-tree-panel .x-form-item-label.x-form-item-label-left {
+    margin-right: -60px !important;
+}
+
+.x-field.rally-textfield-component.x-form-item.x-box-item.x-toolbar-item.x-field-default-toolbar {
+    padding: 3px 0 3px 0;
+    width: 195px !important;
+}

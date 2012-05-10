@@ -1,0 +1,11 @@
+{
+    "name": "Wsapi Reference",
+    "className": "WsapiReference",
+    "sdk": "2.0p",
+    "javascript": [
+        "App.js"
+    ],
+    "css": [
+        "app.css"
+    ]
+}
