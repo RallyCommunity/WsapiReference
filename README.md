@@ -6,4 +6,4 @@ The query panel enables the user to test queries by submitting the form.  The at
 
 ## License
 
-AppTemplate is released under the MIT license.  See the file LICENSE for the full text.
+Wsapi Reference is released under the MIT license.  See the file LICENSE for the full text.
