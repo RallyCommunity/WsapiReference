@@ -1,5 +1,13 @@
 .app {
-    margin: 20px;
+    margin: 5px;
+}
+
+.x-border-layout-ct {
+    background-color: #ffffff;
+}
+
+.mainPanel .x-panel-body-default:first-child {
+    border-width: 0px;
 }
 
 .x-tree-panel.x-grid {

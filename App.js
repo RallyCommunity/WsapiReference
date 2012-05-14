@@ -5,9 +5,10 @@ Ext.define('WsapiReference', {
         launch:function () {
             this.add({
                 xtype:'panel',
+                cls: 'mainPanel',
                 width:'100%',
                 height:'100%',
-                title:'WSAPI Object Models',
+//                title:'WSAPI Object Models',
                 layout:'border',
                 items:[
                     {
@@ -22,7 +23,7 @@ Ext.define('WsapiReference', {
                         title:'Query',
                         region:'west',
                         itemId:'westRegion',
-                        margins:'0 0 5 5',
+                        margins:'0 5 5 5',
                         width:260,
                         collapsible:true,
                         layout:'fit'
@@ -38,6 +39,7 @@ Ext.define('WsapiReference', {
                         title:'Misc',
                         region:'east',
                         itemId:'eastRegion',
+                        split: true,
                         width:250,
                         collapsible:true,
                         collapsed: true,
@@ -438,25 +440,12 @@ Ext.define('WsapiReference', {
         },
 
         _setEastItems: function(data){
-            var miscData = [];
-
-            if(data[0].data.Parent && data[0].data.Parent._refObjectName){
-                miscData.push({Field: 'Parent', Value: data[0].data.Parent._refObjectName});
-            }
-
-            if(data[0].data.Note){
-                miscData.push({Field: 'Note', Value: data[0].data.Note});
-            }
-
-//            miscData.push({Field: 'Usage', Value: 'Coming soon!'});
-//            miscData.push({Field: 'Rest URLs', Value: 'Coming soon!'});
-
             this.down('#eastRegion').setTitle(this.objectModel + ' Misc');
             this.down('#eastRegion').add(
                     {
                         xtype: 'rallygrid',
                         store: Ext.create('Rally.data.custom.Store', {
-                                data: miscData,
+                                data: this._getEastRegionData(data),
                                 pageSize: 5
                             }),
                         showPagingToolbar: false,
@@ -470,6 +459,22 @@ Ext.define('WsapiReference', {
                          ]
                     }
             );
+        },
+
+        _getEastRegionData: function(data){
+            var miscData = [];
+
+            if(data[0].data.Parent && data[0].data.Parent._refObjectName){
+                miscData.push({Field: 'Parent', Value: data[0].data.Parent._refObjectName});
+            }
+
+            if(data[0].data.Note){
+                miscData.push({Field: 'Note', Value: data[0].data.Note});
+            }
+
+//            miscData.push({Field: 'Usage', Value: 'Coming soon!'});
+//            miscData.push({Field: 'Rest URLs', Value: 'Coming soon!'});
+            return miscData;
         },
 
         _buildRows:function (data) {
@@ -589,6 +594,7 @@ Ext.define('WsapiReference', {
                 url = 'http://localhost:7001/slm/doc/webservice/jsonDisplay.jsp?uri=' + url;
             }
 
+            console.log(url);
             if (this.down('#newTab').getSubmitValue()) { // results open in new tab
                 window.open(url, '_newtab');
             } else { // results open in dialog
