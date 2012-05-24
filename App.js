@@ -2,7 +2,11 @@ Ext.define('WsapiReference', {
         extend:'Rally.app.App',
         componentCls:'app',
 
+        baseServerUrl:'',
+
         launch:function () {
+            debugger;
+            this.baseServerUrl =  new Rally.sdk.env.Environment().getServer().getUrl();
             this.add({
                 xtype:'panel',
                 cls: 'mainPanel',
@@ -581,17 +585,17 @@ Ext.define('WsapiReference', {
                 extension = '?';
             }
 
-            var url = 'http://localhost:7001/slm/webservice/1.33/' + this.objectModel.toLowerCase().replace(/\s/g, "") + extension + Ext.Object.toQueryString(params);
+            var url = this.baseServerUrl+'/slm/webservice/1.33/' + this.objectModel.toLowerCase().replace(/\s/g, "") + extension + Ext.Object.toQueryString(params);
 
             if (this.down('#xslStylesheet').getSubmitValue()) {
-                url = url + '&stylesheet=http://localhost:7001/slm/doc/webservice/browser.xsl'
+                url = url + '&stylesheet='+this.baseServerUrl+'/slm/doc/webservice/browser.xsl'
             }
 
             var workspace = this.down('#workspaceCombobox').getValue();
             url = url + '&workspace=' + workspace.slice(0, workspace.length - 3);
 
             if (this.down('#jsonOutput').getSubmitValue()) {
-                url = 'http://localhost:7001/slm/doc/webservice/jsonDisplay.jsp?uri=' + url;
+                url = this.baseServerUrl+'/slm/doc/webservice/jsonDisplay.jsp?uri=' + url;
             }
 
             console.log(url);
