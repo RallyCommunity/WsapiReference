@@ -481,27 +481,10 @@ Ext.define('WsapiReference', {
         },
 
         _buildRows:function (data) {
-            var ignoreAttributes = [
-                'Creation Date',
-                'Object ID',
-                'Subscription',
-                'Workspace',
-                'Changesets',
-                'Description',
-                'Discussion',
-                'Formatted ID',
-                'Last Update Date',
-                'Name',
-                'Notes',
-                'Owner',
-                'Project',
-                'Revision History',
-                'Tags'
-            ];
+
             var rows = [];
             Ext.each(data[0].data.Attributes, function (attr) {
-                if (!Ext.Array.contains(ignoreAttributes, attr.Name)) {
-                    Ext.each(attr, function (field) {
+                Ext.each(attr, function (field) {
                         var children = [];
 
                         if (field.AllowedValues.length) {
@@ -554,7 +537,6 @@ Ext.define('WsapiReference', {
 
                         rows.push({Name:field.Name, children:children, Filter:field.Name});
                     }, this);
-                }
             }, this);
 
             this.rows = rows;
