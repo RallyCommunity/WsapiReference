@@ -5,7 +5,6 @@ Ext.define('WsapiReference', {
         baseServerUrl:'',
 
         launch:function () {
-            debugger;
             this.baseServerUrl =  new Rally.sdk.env.Environment().getServer().getUrl();
             this.add({
                 xtype:'panel',
