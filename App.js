@@ -129,10 +129,16 @@ Ext.define('WsapiReference', {
                         project:null,
                         workspace:Rally.util.Ref.getRelativeUri(combobox.getValue())
                     },
+                    filters:[
+                        {
+                            field:'Queryable',
+                            value:true
+                        }
+                    ],
                     listeners: {
                         load:{
                             fn:function(store, data){
-                                store.insert(new store.model, 0);
+                                store.insert(new store.model(), 0);
                             }
                         }
                     }
@@ -344,7 +350,7 @@ Ext.define('WsapiReference', {
                             },
                             cellclick: {
                                 fn: function (o, idx, column, e) {
-                                    if (column == 2) {
+                                    if (column === 2) {
                                         var objectModel = idx.getElementsByTagName('a')[0].id;
                                         if(objectModel){
                                             this.objectCombobox.setValue(objectModel);
@@ -423,7 +429,7 @@ Ext.define('WsapiReference', {
                                                     var filterText = this.getValue();
 
                                                     this.up('#treepanel').getRootNode().cascadeBy(function () {
-                                                        if (!(this.data.Filter.toLowerCase().indexOf(filterText.toLowerCase()) > -1)) {
+                                                        if (this.data.Filter.toLowerCase().indexOf(filterText.toLowerCase()) < -1) {
                                                             removeArray.push(this);
                                                         }
                                                     });
@@ -569,7 +575,7 @@ Ext.define('WsapiReference', {
             var url = this.baseServerUrl+'/slm/webservice/1.33/' + this.objectModel.toLowerCase().replace(/\s/g, "") + extension + Ext.Object.toQueryString(params);
 
             if (this.down('#xslStylesheet').getSubmitValue()) {
-                url = url + '&stylesheet='+this.baseServerUrl+'/slm/doc/webservice/browser.xsl'
+                url = url + '&stylesheet='+this.baseServerUrl+'/slm/doc/webservice/browser.xsl';
             }
 
             var workspace = this.down('#workspaceCombobox').getValue();
@@ -579,7 +585,6 @@ Ext.define('WsapiReference', {
                 url = this.baseServerUrl+'/slm/doc/webservice/jsonDisplay.jsp?uri=' + url;
             }
 
-            console.log(url);
             if (this.down('#newTab').getSubmitValue()) { // results open in new tab
                 window.open(url, '_newtab');
             } else { // results open in dialog
